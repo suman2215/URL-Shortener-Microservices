@@ -23,30 +23,37 @@ This is a microservices-based URL Shortener application built using Flask and Fl
 ## Directory Structure
 
 ```plaintext
-url_shortener_microservices/
+URL-Shortener-Microservices/
 │
 ├── api_gateway/
 │   ├── app.py
+│   ├── deployment.yaml
 │   ├── Dockerfile
-│   └── deployment.yaml
-│
-├── url_shortener_service/
-│   ├── app.py
-│   ├── Dockerfile
-│   └── deployment.yaml
-│
-├── url_redirection_service/
-│   ├── app.py
-│   ├── Dockerfile
-│   └── deployment.yaml
+│   └── requirements.txt
 │
 ├── caching_service/
 │   ├── app.py
+│   ├── deployment.yaml
 │   ├── Dockerfile
+│   └── requirements.txt
+│
+├── memcached/
 │   └── deployment.yaml
 │
 ├── mongodb/
 │   └── deployment.yaml
+│
+├── url_redirection_service/
+│   ├── app.py
+│   ├── deployment.yaml
+│   ├── Dockerfile
+│   └── requirements.txt
+│
+├── url_shortener_service/
+│   ├── app.py
+│   ├── deployment.yaml
+│   ├── Dockerfile
+│   └── requirements.txt
 │
 └── build_and_push.sh
 ```
