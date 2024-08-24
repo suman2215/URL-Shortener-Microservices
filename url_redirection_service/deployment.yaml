@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-redirection-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: url-redirection-service
+  template:
+    metadata:
+      labels:
+        app: url-redirection-service
+    spec:
+      containers:
+      - name: url-redirection-service
+        image: url-redirection-service:latest
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: url-redirection-service
+spec:
+  selector:
+    app: url-redirection-service
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002
