@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import string, random
+import requests
 
 app = Flask(__name__)
 
@@ -17,6 +18,14 @@ def shorten_url():
     original_url = request.json['url']
     short_id = generate_short_id()
     url_collection.insert_one({'original_url': original_url, 'short_id': short_id})
+
+    # Set the value in the caching service
+    cache_data = {'key': short_id, 'value': original_url}
+    cache_response = requests.post('http://caching-service:5003/set', json=cache_data)
+
+    if cache_response.status_code != 200:
+        return jsonify({"error": "Failed to cache the URL"}), 500
+
     return jsonify({"shortened_url": f"http://{request.host}/{short_id}"}), 201
 
 if __name__ == '__main__':

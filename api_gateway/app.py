@@ -12,6 +12,9 @@ def shorten_url():
 # URL Redirection Route
 @app.route('/<short_id>', methods=['GET'])
 def redirect_url(short_id):
+    cache_response = requests.get(f'http://caching-service:5003/get/{short_id}')
+    if cache_response.status_code == 200:
+        return cache_response.content, cache_response.status_code
     response = requests.get(f'http://url-redirection-service:5002/{short_id}')
     return response.content, response.status_code
 
